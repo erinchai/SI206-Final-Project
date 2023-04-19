@@ -1,0 +1,2 @@
+Showing the average weekly aqi for New York City from 1/1/23 - 2/28/23: [72, 50, 41, 41, 52, 57, 55, 46]
+Showing the average weekly aqi for Honolulu from 1/1/23 - 2/28/23: [48, 38, 37, 35, 30, 38, 37, 38]

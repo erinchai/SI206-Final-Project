@@ -1,0 +1,2 @@
+Showing the average weekly temperatures for New York City from 1/1/23 - 2/28/23: [46, 38, 39, 40, 32, 41, 44, 39]
+Showing the average weekly temperatures for New York City from 1/1/23 - 2/28/23: [74, 73, 77, 74, 73, 74, 73, 73]
