@@ -72,27 +72,6 @@ def open_db(db_name):
     cur = conn.cursor()
     return cur, conn
 
-def fill_date_table(cur, con):
-    id= 1
-    first_day = datetime.datetime(2023,1,1)
-    num_days = 59
-    datelist = [(first_day + datetime.timedelta(days = x)).strftime("%Y-%m-%d")for x in range(59)]
-    cur.execute('CREATE TABLE IF NOT EXISTS master_date (id INTEGER PRIMARY KEY, date TEXT)')
-    for date in datelist:
-        cur.execute("INSERT OR IGNORE INTO master_date (id, date) VALUES (?, ?)", (id, date))
-        id += 1
-        con.commit()
-
-def fill_city_table(cur, con):
-    city_lst = [("New+York", "40.7128","74.0060"), ("Honolulu","21.3099", "157.8581")]
-    id= 1
-    for city, lat,long in city_lst:
-        cur.execute('CREATE TABLE IF NOT EXISTS master_city (id INTEGER PRIMARY KEY, city TEXT, lat TEXT, long TEXT)')
-        cur.execute("INSERT OR IGNORE INTO master_city (id, city, lat, long) VALUES (?, ?, ?, ?)", (id, city, lat, long))
-        id += 1
-        con.commit()
-
-
 def make_weather_table(data, cur, conn, start):
     city = 'New+York'
     if start + 25 < 119:
@@ -138,8 +117,7 @@ def main():
     weather_lst.extend(weather2_lst)
   
     cur, conn = open_db('final.db')
-    fill_date_table(cur, conn)
-    fill_city_table(cur, conn)
+
     # cur.execute("DROP TABLE temperature")
    # check current row in database in main (ROW_NUMBER)
    
