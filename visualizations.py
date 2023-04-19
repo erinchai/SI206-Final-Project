@@ -1,10 +1,55 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import sqlite3
+import os
 
 week_list = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8']
 nyc_aqi_list = [72, 50, 41, 41, 52, 57, 55, 46]
 honolulu_aqi_list = [48, 38, 37, 35, 30, 39, 37, 38]
 nyc_temp_list = [46, 38, 39, 40, 32, 41, 44, 39]
+
+def open_db(db_name):
+    path = os.path.dirname(os.path.abspath(__file__))
+    con = sqlite3.connect(path + '/' + db_name)
+    cur = con.cursor()
+    return cur, con
+
+def compare_temp_aqi_nyc(con,cur):
+    cur.execute('SELECT temperature.temperature, aqi_level2.aqi FROM temperature JOIN aqi_level2 ON temperature.date_id = aqi_level2.date_id  WHERE aqi_level2.city_id=1 AND temperature.city_id = 1')
+    data = cur.fetchall()
+    nyc_temp = []
+    nyc_aqi = []
+    for x in data:
+        nyc_temp.append(x[0])
+        nyc_aqi.append(x[1])
+    plt.scatter(nyc_temp,nyc_aqi, c='blue')
+    plt.ylabel('AQI level')
+    plt.xlabel('Temperature (Farenheit)')
+    plt.title("Comparing NYC Temperature and AQI in Jan to Feb 2023")
+
+    plt.legend(['NYC'],loc='best')
+    plt.savefig("compare_temp_aqi_ny.png")
+    plt.show()
+
+def compare_temp_aqi_honolulu(con,cur):
+    cur.execute('SELECT temperature.temperature, aqi_level2.aqi FROM temperature JOIN aqi_level2 ON temperature.date_id = aqi_level2.date_id  WHERE aqi_level2.city_id=2 AND temperature.city_id = 2')
+    # cur.execute('SELECT temperature.temperature, aqi_level2.* FROM temperature JOIN aqi_level2 ON temperature.date_id = aqi_level2.date_id  WHERE aqi_level2.city_id=2 AND temperature.city_id = 2')
+    data = cur.fetchall()
+    print(data)
+    honolulu_temp = []
+    honolulu_aqi = []
+    for x in data:
+        honolulu_temp.append(x[0])
+        honolulu_aqi.append(x[1])
+    # print(len(honolulu_temp))
+    plt.scatter(honolulu_temp,honolulu_aqi, c='lightsalmon')
+    plt.ylabel('AQI level')
+    plt.xlabel('Temperature (Farenheit)')
+    plt.title("Comparing Honolulu Temperature and AQI in Jan to Feb 2023")
+
+    plt.legend(['Honolulu'],loc='best')
+    plt.savefig("compare_temp_aqi_honolulu.png")
+    plt.show()
 
 
 
@@ -124,9 +169,12 @@ def compare_humidity():
     plt.savefig("compare_humidity.png")
     plt.show()
 
-compare_temp_graph
-compare_aqi_graph()
-compare_humidity()
+def main():
+    cur, con = open_db("final.db")
+    # compare_temp_graph()
+    # compare_aqi_graph()
+    # compare_humidity()
+    compare_temp_aqi_nyc(con,cur)
+    # compare_temp_aqi_honolulu(con,cur)
 
-
-    
+main()
