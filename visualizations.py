@@ -171,10 +171,10 @@ def compare_humidity():
 
 def main():
     cur, con = open_db("final.db")
-    # compare_temp_graph()
-    # compare_aqi_graph()
-    # compare_humidity()
+    compare_temp_graph()
+    compare_aqi_graph()
+    compare_humidity()
     compare_temp_aqi_nyc(con,cur)
-    # compare_temp_aqi_honolulu(con,cur)
+    compare_temp_aqi_honolulu(con,cur)
 
 main()
