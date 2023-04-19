@@ -78,7 +78,7 @@ def main():
     cur, con = open_db('final.db')
 
     nyc_temp = calc_wkly_avg_temp(cur, con, "New+York")
-    with open('temp.txt',"a") as f:
+    with open('temp.txt',"w") as f:
         f.write(f"Showing the average weekly temperatures for New York City from 1/1/23 - 2/28/23: {nyc_temp}\n")
 
     honolulu_temp =calc_wkly_avg_temp(cur, con, "Honolulu")
@@ -86,7 +86,7 @@ def main():
         f.write(f"Showing the average weekly temperatures for New York City from 1/1/23 - 2/28/23: {honolulu_temp}\n")
     
     nyc_aqi = calc_wkly_avg_aqi(cur, con, "New+York")
-    with open('aqi.txt',"a") as f:
+    with open('aqi.txt',"w") as f:
         f.write(f"Showing the average weekly aqi for New York City from 1/1/23 - 2/28/23: {nyc_aqi}\n")
 
     honolulu_aqi = calc_wkly_avg_aqi(cur, con, "Honolulu")
@@ -94,7 +94,7 @@ def main():
         f.write(f"Showing the average weekly aqi for Honolulu from 1/1/23 - 2/28/23: {honolulu_aqi}\n")
 
     nyc_humidity = calc_wkly_avg_humidity(cur,con,"New+York")
-    with open('humidity.txt',"a") as f:
+    with open('humidity.txt',"w") as f:
         f.write(f"Showing the average weekly humidity percentage for New York City from 1/1/23 - 2/28/23: {nyc_humidity}\n")
     
     honolulu_humidity = calc_wkly_avg_humidity(cur,con,"Honolulu")
